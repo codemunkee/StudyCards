@@ -1,13 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { getDecks } from './utils/helpers';
+import DeckLink from './components/DeckLink';
 
 export default class App extends React.Component {
   render() {
+    const decks = getDecks();
+    console.log(decks);
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        { Object.keys(decks).map(deck =>
+          <DeckLink
+            key={decks[deck].title}
+            deck={decks[deck]}
+          />)
+        }
       </View>
     );
   }
