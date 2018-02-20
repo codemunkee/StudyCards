@@ -9,7 +9,7 @@ export default class App extends React.Component {
     console.log(decks);
     return (
       <View style={styles.container}>
-        <DeckLinks decks={decks} />
+        <DeckLinks style={{flex: 1}} decks={decks} />
       </View>
     );
   }
@@ -19,7 +19,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

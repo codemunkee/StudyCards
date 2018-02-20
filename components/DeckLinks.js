@@ -10,7 +10,6 @@ export default function DeckLinks({ decks }) {
   console.log(deckList);
   return (
     <FlatList
-        style={{flex: 1}}
         data={deckList}
         renderItem={({ item }) => (
             <ListItem
@@ -28,8 +27,7 @@ export default function DeckLinks({ decks }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 1,
-    width: 300,
+    justifyContent: 'flex-start',
     backgroundColor: 'gray',
   }
 })
