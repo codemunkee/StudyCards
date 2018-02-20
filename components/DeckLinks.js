@@ -3,11 +3,17 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native
 import { ListItem } from 'react-native-elements';
 
 export default function DeckLinks({ decks }) {
-  console.log('called', decks)
+
   const deckList = Object.keys(decks).map((deckKey) => {
     return decks[deckKey];
   })
-  console.log(deckList);
+
+  handlePress = (data) => {
+    return () => {
+      console.log(`${data} was pressed!`);
+    }
+  }
+
   return (
     <FlatList
         data={deckList}
@@ -15,8 +21,9 @@ export default function DeckLinks({ decks }) {
             <ListItem
               containerStyle={styles.container}
               key={item.title}
-              title="Oh Yay"
-              badge={{ value: 3, textStyle: { color: 'orange' } }}
+              title={item.title}
+              badge={{ value: item.questions.length, textStyle: { color: 'orange' } }}
+              onPress={this.handlePress(item.title)}
             />
         )}
         keyExtractor={(item, index) => index}
@@ -28,6 +35,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: 'gray',
+    backgroundColor: 'lightgray',
   }
 })

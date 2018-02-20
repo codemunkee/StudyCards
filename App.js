@@ -6,7 +6,6 @@ import DeckLinks from './components/DeckLinks';
 export default class App extends React.Component {
   render() {
     const decks = getDecks();
-    console.log(decks);
     return (
       <View style={styles.container}>
         <DeckLinks style={{flex: 1}} decks={decks} />
@@ -18,6 +17,5 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
 });
