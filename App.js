@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { getDecks } from './utils/helpers';
-import DeckLink from './components/DeckLink';
+import DeckLinks from './components/DeckLinks';
 
 export default class App extends React.Component {
   render() {
@@ -9,12 +9,7 @@ export default class App extends React.Component {
     console.log(decks);
     return (
       <View style={styles.container}>
-        { Object.keys(decks).map(deck =>
-          <DeckLink
-            key={decks[deck].title}
-            deck={decks[deck]}
-          />)
-        }
+        <DeckLinks decks={decks} />
       </View>
     );
   }
