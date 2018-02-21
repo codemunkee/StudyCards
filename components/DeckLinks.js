@@ -1,16 +1,21 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import { getDecks } from '../utils/helpers';
 
-export default function DeckLinks({ decks }) {
+export default function DeckLinks(props) {
 
+  const decks = getDecks();
   const deckList = Object.keys(decks).map((deckKey) => {
     return decks[deckKey];
   })
 
+
   handlePress = (data) => {
     return () => {
       console.log(`${data} was pressed!`);
+      const  { navigate } = props.navigation;
+      navigate('DeckView', data)
     }
   }
 

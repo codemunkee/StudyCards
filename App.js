@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { Constants } from 'expo';
-import { getDecks } from './utils/helpers';
+import { TabNavigator, StackNavigator } from 'react-navigation';
+import Home from './components/Home';
 import DeckLinks from './components/DeckLinks';
+import DeckView from './components/DeckView';
 
 function StudyStatusBar({ backgroundColor, ...props }) {
   return (
@@ -12,13 +14,21 @@ function StudyStatusBar({ backgroundColor, ...props }) {
   )
 }
 
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: DeckLinks,
+  },
+  DeckView: {
+    screen: DeckView,
+  },
+})
+
 export default class App extends React.Component {
   render() {
-    const decks = getDecks();
     return (
       <View style={styles.container}>
         <StudyStatusBar backgroundColor="darkgray" barStyle="light-content" />
-        <DeckLinks style={{flex: 1}} decks={decks} />
+        <MainNavigator />
       </View>
     );
   }
