@@ -14,14 +14,19 @@ function StudyStatusBar({ backgroundColor, ...props }) {
   )
 }
 
-const MainNavigator = StackNavigator({
-  Home: {
-    screen: DeckLinks,
+const MainNavigator = StackNavigator(
+  {
+    Home: {
+      screen: DeckLinks,
+    },
+    DeckView: {
+      screen: DeckView,
+    },
   },
-  DeckView: {
-    screen: DeckView,
-  },
-})
+  {
+    headerMode: 'none'
+  }
+)
 
 export default class App extends React.Component {
   render() {

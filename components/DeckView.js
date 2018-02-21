@@ -10,7 +10,7 @@ export default function DeckView(props) {
   }
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Text>
         {props.navigation.state.params}
       </Text>
