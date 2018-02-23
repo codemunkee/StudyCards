@@ -2,8 +2,8 @@ export function getDecks() {
   return deckData;
 }
 
-export function getDeck() {
-  console.log('Get Deck');
+export function getDeck(deckTitle) {
+  return deckData[deckTitle];
 }
 
 export function saveDeckTitle() {

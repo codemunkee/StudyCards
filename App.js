@@ -24,7 +24,22 @@ const MainNavigator = StackNavigator(
     },
   },
   {
-    headerMode: 'none'
+    headerMode: 'float',
+    navigationOptions: {
+      title: 'StudyCards',
+      headerBackTitle: null,
+      headerStyle: {
+        backgroundColor: 'lightblue',
+        height: 24,
+        paddingBottom: 10,
+      },
+      headerTitleStyle: {
+        fontFamily: 'Futura',
+        fontSize: 30,
+        paddingBottom: 10,
+        color: '#2a2a66',
+      },
+    },
   }
 )
 

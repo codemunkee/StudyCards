@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { getDeck } from '../utils/helpers'
 
-export default function DeckView(props) {
+class DeckView extends Component {
+
+  state = {
+    dataLoaded: false,
+    deckData: {},
+  }
 
   handlePress = (data) => {
     return () => {
@@ -9,13 +15,40 @@ export default function DeckView(props) {
     }
   }
 
-  return (
-    <View style={{flex: 1}}>
-      <Text>
-        {props.navigation.state.params}
-      </Text>
-    </View>
-  )
+  componentDidMount() {
+    const deckData = getDeck(this.props.navigation.state.params);
+    this.setState({
+      dataLoaded: true,
+      deckData,
+    })
+  }
+
+  render() {
+    const { deckData, dataLoaded } = this.state;
+    return (
+      <View style={{flex: 1}}>
+        <View>
+          <Text>
+            {this.props.navigation.state.params}
+          </Text>
+        </View>
+
+        { this.state.dataLoaded && (
+          <View>
+            <View>
+              <Text>{this.state.deckData.questions.length}</Text>
+            </View>
+            <View>
+              <Text>Start Quiz</Text>
+            </View>
+            <View>
+              <Text>Add a New Question</Text>
+            </View>
+          </View>
+        )}
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -25,3 +58,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
   }
 })
+
+export default DeckView;
