@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  ActivityIndicator,
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet
+} from 'react-native';
 import { getDeck } from '../utils/helpers'
 
 class DeckView extends Component {
 
   state = {
+    deckTitle: this.props.navigation.state.params,
     dataLoaded: false,
-    deckData: {},
   }
 
   handlePress = (data) => {
@@ -16,7 +23,7 @@ class DeckView extends Component {
   }
 
   componentDidMount() {
-    const deckData = getDeck(this.props.navigation.state.params);
+    const deckData = getDeck(this.state.deckTitle);
     this.setState({
       dataLoaded: true,
       deckData,
@@ -24,22 +31,25 @@ class DeckView extends Component {
   }
 
   render() {
-    const { deckData, dataLoaded } = this.state;
+    const { deckTitle, deckData, dataLoaded } = this.state;
     return (
-      <View style={{flex: 1}}>
-        <View>
-          <Text>
-            {this.props.navigation.state.params}
-          </Text>
-        </View>
+      <View style={{ flex: 1 }}>
+        { !dataLoaded && (
+          <View style={styles.dataLoading}>
+            <ActivityIndicator size="large" color="#0000ff" />
+            <Text>
+              Loading {deckTitle} Cards...
+            </Text>
+          </View>
+        )}
 
         { this.state.dataLoaded && (
           <View>
-            <View>
-              <Text>{this.state.deckData.questions.length}</Text>
-              <Text>{JSON.stringify(this.state.deckData.questions)}</Text>
+            <View style={styles.deckDetails}>
+              <Text>{deckData.questions.length}</Text>
+              <Text>{JSON.stringify(deckData.questions)}</Text>
             </View>
-            <View>
+            <View style={styles.deckQuestions}>
               <Text>Start Quiz</Text>
             </View>
             <View>
@@ -53,11 +63,28 @@ class DeckView extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  dataLoading: {
     flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: 'lightgray',
-  }
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    backgroundColor: 'powderblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  titleText: {
+    backgroundColor: 'lightblue',
+    fontSize: 30,
+  },
+  deckDetails: {
+    backgroundColor: 'lightblue',
+  },
+  deckQuestions: {
+    backgroundColor: 'steelblue',
+  },
 })
 
 export default DeckView;
