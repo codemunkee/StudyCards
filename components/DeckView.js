@@ -37,6 +37,7 @@ class DeckView extends Component {
           <View>
             <View>
               <Text>{this.state.deckData.questions.length}</Text>
+              <Text>{JSON.stringify(this.state.deckData.questions)}</Text>
             </View>
             <View>
               <Text>Start Quiz</Text>
