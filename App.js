@@ -46,16 +46,10 @@ const MainNavigator = StackNavigator(
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{ flex: 1 }}>
         <StudyStatusBar backgroundColor="lightblue" barStyle="dark-content" />
         <MainNavigator />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

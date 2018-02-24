@@ -27,7 +27,7 @@ export default function DeckLinks(props) {
               containerStyle={styles.container}
               key={item.title}
               title={item.title}
-              badge={{ value: item.questions.length, textStyle: { color: 'orange' } }}
+              badge={{ value: item.questions.length, textStyle: { color: 'powderblue' } }}
               onPress={this.handlePress(item.title)}
             />
         )}

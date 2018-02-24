@@ -36,7 +36,7 @@ class DeckView extends Component {
       <View style={{ flex: 1 }}>
         { !dataLoaded && (
           <View style={styles.dataLoading}>
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator size="large" color="#2a2a66" />
             <Text>
               Loading {deckTitle} Cards...
             </Text>
@@ -44,15 +44,20 @@ class DeckView extends Component {
         )}
 
         { this.state.dataLoaded && (
-          <View>
+          <View style={styles.container}>
             <View style={styles.deckDetails}>
-              <Text>{deckData.questions.length}</Text>
-              <Text>{JSON.stringify(deckData.questions)}</Text>
+              <View style={styles.deckTitleContainer}>
+                <Text style={styles.deckTitleText}>{deckTitle}</Text>
+              </View>
+              <View style={styles.deckCountContainer}>
+                <Text style={styles.deckCountInteger}>{deckData.questions.length}</Text>
+                <Text style={styles.deckCountText}>cards</Text>
+              </View>
             </View>
-            <View style={styles.deckQuestions}>
+            <View style={styles.quizButton}>
               <Text>Start Quiz</Text>
             </View>
-            <View>
+            <View style={styles.addQuestionButton}>
               <Text>Add a New Question</Text>
             </View>
           </View>
@@ -63,27 +68,54 @@ class DeckView extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   dataLoading: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    backgroundColor: 'powderblue',
+  deckDetails: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 20,
-    paddingBottom: 20,
   },
-  titleText: {
+  deckTitleContainer: {
+    flex: 2,
+    height: 70,
+    backgroundColor: 'skyblue',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deckTitleText: {
+    fontSize: 40,
+    backgroundColor: 'skyblue',
+  },
+  deckCountContainer: {
+    flex: 1,
+    height: 70,
     backgroundColor: 'lightblue',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deckCountInteger: {
     fontSize: 30,
   },
-  deckDetails: {
-    backgroundColor: 'lightblue',
+  deckCountText: {
+    fontSize: 20,
   },
-  deckQuestions: {
-    backgroundColor: 'steelblue',
+  quizButton: {
+    flex: 1,
+  },
+  addQuestionButton: {
+    flex: 1,
   },
 })
 
