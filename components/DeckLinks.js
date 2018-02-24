@@ -13,7 +13,6 @@ export default function DeckLinks(props) {
 
   handlePress = (data) => {
     return () => {
-      console.log(`${data} was pressed!`);
       const  { navigate } = props.navigation;
       navigate('DeckView', data)
     }

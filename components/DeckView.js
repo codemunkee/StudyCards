@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
+  Button,
   View,
   Text,
   FlatList,
@@ -54,11 +55,19 @@ class DeckView extends Component {
                 <Text style={styles.deckCountText}>cards</Text>
               </View>
             </View>
-            <View style={styles.quizButton}>
-              <Text>Start Quiz</Text>
+            <View style={styles.buttonContainer}>
+              <View style={styles.buttonBar}>
+                <TouchableOpacity style={styles.button}>
+                  <Text style={styles.buttonText}>START QUIZ</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.addQuestionButton}>
-              <Text>Add a New Question</Text>
+            <View style={styles.buttonContainer}>
+              <View style={styles.buttonBar}>
+                <TouchableOpacity style={[styles.button, {backgroundColor: 'lightgray'}]}>
+                  <Text style={styles.buttonText}>ADD QUESTION</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         )}
@@ -111,12 +120,27 @@ const styles = StyleSheet.create({
   deckCountText: {
     fontSize: 20,
   },
-  quizButton: {
+  buttonContainer: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  addQuestionButton: {
+  buttonBar: {
     flex: 1,
+    height: 70,
+    backgroundColor: 'lightblue',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  button: {
+    backgroundColor: '#80ffaa',
+    borderRadius: 15,
+  },
+  buttonText: {
+    padding: 15,
+    fontSize: 20,
+  }
 })
 
 export default DeckView;
