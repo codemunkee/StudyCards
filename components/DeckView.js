@@ -4,7 +4,6 @@ import {
   Button,
   View,
   Text,
-  FlatList,
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
@@ -18,8 +17,14 @@ class DeckView extends Component {
   }
 
   handlePress = (data) => {
+    console.log('pressed' + data)
     return () => {
-      console.log(`${data} was pressed!`);
+      if (data === 'startQuiz') {
+        this.props.navigation.navigate('QuizView', this.state.deckData)
+      }
+      if (data === 'addQuestion') {
+        this.props.navigation.navigate('AddQuestion', this.state.deckData)
+      }
     }
   }
 
@@ -57,14 +62,20 @@ class DeckView extends Component {
             </View>
             <View style={styles.buttonContainer}>
               <View style={styles.buttonBar}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                  onPress={this.handlePress('startQuiz')}
+                  style={styles.button}
+                >
                   <Text style={styles.buttonText}>START QUIZ</Text>
                 </TouchableOpacity>
               </View>
             </View>
             <View style={styles.buttonContainer}>
               <View style={styles.buttonBar}>
-                <TouchableOpacity style={[styles.button, {backgroundColor: 'lightgray'}]}>
+                <TouchableOpacity
+                  onPress={this.handlePress('addQuestion')}
+                  style={[styles.button, {backgroundColor: 'lightgray'}]}
+                >
                   <Text style={styles.buttonText}>ADD QUESTION</Text>
                 </TouchableOpacity>
               </View>
