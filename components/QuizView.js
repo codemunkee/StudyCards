@@ -12,6 +12,8 @@ class QuizView extends Component {
     deckData: this.props.navigation.state.params,
     showFront: true,
     activeQuestion: 0,
+    correctQs: 0,
+    incorrectQs: 0,
     quizOver: false,
   }
 
@@ -27,45 +29,85 @@ class QuizView extends Component {
     }
   }
 
+  answer(data) {
+    return () => {
+      const { correctQs, incorrectQs, activeQuestion, deckData } = this.state;
+      if (data === 'correct') {
+        this.setState({
+          correctQs: correctQs + 1,
+          showFront: true,
+          activeQuestion: activeQuestion + 1,
+          quizOver: ((correctQs + incorrectQs + 1) === deckData.questions.length)
+            ? true : false,
+        })
+      }
+      if (data === 'incorrect') {
+        this.setState({
+          incorrectQs: incorrectQs + 1,
+          showFront: true,
+          activeQuestion: activeQuestion + 1,
+          quizOver: ((correctQs + incorrectQs + 1) === deckData.questions.length)
+            ? true : false,
+        })
+      }
+    }
+  }
+
   render() {
     const { title, questions } = this.state.deckData;
-    const { activeQuestion } = this.state;
-    const { question, answer } = questions[activeQuestion];
+    const { activeQuestion, quizOver, correctQs, incorrectQs } = this.state;
+
+    console.log('STATE', this.state);
 
     return (
       <View style={styles.container}>
-        <View style={{paddingTop: 40, paddingBottom: 40, alignItems: 'center'}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>{title} Quiz</Text>
-          <Text>Question {activeQuestion + 1}/{questions.length}</Text>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => this.flipCard()} activeOpacity={1}>
-            { this.state.showFront && (
-              <View style={[styles.flipCard]}>
-                <Text style={styles.flipText}>
-                  {question}
-                </Text>
-                <FontAwesome name="share" size={30} color="#2a2a66" style={{paddingTop: 20}} />
-              </View>
-            )}
-            { !this.state.showFront && (
-              <View style={[styles.flipCard, styles.flipCardBack]}>
-                <Text style={styles.flipText}>
-                  {answer}
-                </Text>
-                <FontAwesome name="share" size={30} color="#2a2a66" style={{paddingTop: 20}} />
-              </View>
-            )}
-          </TouchableOpacity>
-          <View style={styles.answerButtonContainer}>
-            <TouchableOpacity style={[styles.answerButton, styles.answerButtonLeft]}>
-              <FontAwesome name="thumbs-up" size={20} color="#2a2a66" />
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.answerButton, styles.answerButtonRight]}>
-              <FontAwesome name="thumbs-down" size={20} color="#2a2a66" />
-            </TouchableOpacity>
+        { quizOver && (
+          <View style={styles.container}>
+            <Text>Quiz Over!</Text>
           </View>
-        </View>
+        )}
+        { !quizOver && (
+          <View style={styles.container}>
+            <View style={{paddingTop: 40, paddingBottom: 40, alignItems: 'center'}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>{title} Quiz</Text>
+              <Text>Question {activeQuestion + 1}/{questions.length}</Text>
+            </View>
+            <View>
+              <TouchableOpacity onPress={() => this.flipCard()} activeOpacity={1}>
+                { this.state.showFront && (
+                  <View style={[styles.flipCard]}>
+                    <Text style={styles.flipText}>
+                      {questions[activeQuestion].question}
+                    </Text>
+                    <FontAwesome name="share" size={30} color="#2a2a66" style={{paddingTop: 20}} />
+                  </View>
+                )}
+                { !this.state.showFront && (
+                  <View style={[styles.flipCard, styles.flipCardBack]}>
+                    <Text style={styles.flipText}>
+                      {questions[activeQuestion].answer}
+                    </Text>
+                    <FontAwesome name="share" size={30} color="#2a2a66" style={{paddingTop: 20}} />
+                  </View>
+                )}
+              </TouchableOpacity>
+              <View style={styles.answerButtonContainer}>
+                <TouchableOpacity
+                  style={[styles.answerButton, styles.answerButtonLeft]}
+                  onPress={this.answer('correct')}
+                >
+                  <FontAwesome name="thumbs-up" size={20} color="#2a2a66" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.answerButton, styles.answerButtonRight]}
+                  onPress={this.answer('incorrect')}
+                >
+                  <FontAwesome name="thumbs-down" size={20} color="#2a2a66" />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        )}
       </View>
     )
   }
