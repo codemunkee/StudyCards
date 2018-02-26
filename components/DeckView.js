@@ -17,7 +17,6 @@ class DeckView extends Component {
   }
 
   handlePress = (data) => {
-    console.log('pressed' + data)
     return () => {
       if (data === 'startQuiz') {
         this.props.navigation.navigate('QuizView', this.state.deckData)
