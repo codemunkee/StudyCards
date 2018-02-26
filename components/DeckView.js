@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'
 import { getDeck } from '../utils/helpers'
 
 class DeckView extends Component {
