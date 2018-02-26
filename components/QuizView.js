@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Animated
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'
 
@@ -14,22 +13,6 @@ class QuizView extends Component {
     showFront: true,
     activeQuestion: 0,
     quizOver: false,
-  }
-
-  componentWillMount() {
-    this.animatedValue = new Animated.Value(0);
-    this.value = 0;
-    this.animatedValue.addListener(({ value }) => {
-      this.value = value;
-    })
-    this.frontInterpolate = this.animatedValue.interpolate({
-      inputRange: [0, 180],
-      outputRange: ['0deg', '180deg'],
-    })
-    this.backInterpolate = this.animatedValue.interpolate({
-      inputRange: [0, 180],
-      outputRange: ['180deg', '360deg']
-    })
   }
 
   flipCard() {
@@ -42,37 +25,12 @@ class QuizView extends Component {
         showFront: true,
       })
     }
-    if (this.value >= 90) {
-      Animated.spring(this.animatedValue,{
-        toValue: 0,
-        friction: 18,
-        tension: 2
-      }).start();
-    } else {
-      Animated.spring(this.animatedValue,{
-        toValue: 180,
-        friction: 18,
-        tension: 2
-      }).start();
-    }
   }
 
   render() {
     const { title, questions } = this.state.deckData;
     const { activeQuestion } = this.state;
     const { question, answer } = questions[activeQuestion];
-    console.log(questions)
-
-    const frontAnimatedStyle = {
-      transform: [
-        { rotateY: this.frontInterpolate}
-      ]
-    }
-    const backAnimatedStyle = {
-      transform: [
-        { rotateY: this.backInterpolate }
-      ]
-    }
 
     return (
       <View style={styles.container}>
@@ -83,20 +41,20 @@ class QuizView extends Component {
         <View>
           <TouchableOpacity onPress={() => this.flipCard()} activeOpacity={1}>
             { this.state.showFront && (
-              <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
+              <View style={[styles.flipCard]}>
                 <Text style={styles.flipText}>
                   {question}
                 </Text>
                 <FontAwesome name="share" size={30} color="#2a2a66" style={{paddingTop: 20}} />
-              </Animated.View>
+              </View>
             )}
             { !this.state.showFront && (
-              <Animated.View style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}>
+              <View style={[styles.flipCard, styles.flipCardBack]}>
                 <Text style={styles.flipText}>
                   {answer}
                 </Text>
                 <FontAwesome name="share" size={30} color="#2a2a66" style={{paddingTop: 20}} />
-              </Animated.View>
+              </View>
             )}
           </TouchableOpacity>
           <View style={styles.answerButtonContainer}>
