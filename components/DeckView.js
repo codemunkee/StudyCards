@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons'
 import { getDeck } from '../utils/helpers'
 
 class DeckView extends Component {
@@ -146,6 +147,12 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#80ffaa',
     borderRadius: 15,
+    shadowOpacity: .9,
+    shadowColor: 'rgba(0,0,0,0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
   },
   buttonText: {
     padding: 15,
