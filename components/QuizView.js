@@ -53,17 +53,68 @@ class QuizView extends Component {
     }
   }
 
+  quizOver(data) {
+    return () => {
+      if (data === 'reset') {
+        this.setState({
+          showFront: true,
+          activeQuestion: 0,
+          correctQs: 0,
+          incorrectQs: 0,
+          quizOver: false,
+        });
+      }
+      if (data === 'deckView') {
+        this.props.navigation.popToTop();
+      }
+    }
+  }
+
   render() {
     const { title, questions } = this.state.deckData;
     const { activeQuestion, quizOver, correctQs, incorrectQs } = this.state;
 
-    console.log('STATE', this.state);
-
     return (
-      <View style={styles.container}>
+      <View style={{flex: 1}}>
         { quizOver && (
-          <View style={styles.container}>
-            <Text>Quiz Over!</Text>
+          <View style={styles.quizOver}>
+            <View style={styles.quizOverBar}>
+              <View style={[styles.quizOverTitle, {backgroundColor: 'skyblue'}]}>
+                <Text style={styles.quizOverTitleText}>{title} Quiz Results</Text>
+              </View>
+            </View>
+            <View style={styles.quizOverBar}>
+              <View style={[styles.quizOverTitle, {height: 100}]}>
+                <Text
+                  style={[styles.quizOverTitleText, {fontSize: 60, fontWeight: 'bold'}]}
+                >
+                  {(correctQs/(correctQs + incorrectQs)).toFixed(2) * 100}%
+                </Text>
+                <Text>
+                  Correct: {correctQs} Incorrect: {incorrectQs}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.quizOverBar}>
+              <View style={[styles.quizOverTitle, {flexDirection: 'row'}]}>
+                <TouchableOpacity
+                  style={[styles.answerButton, styles.answerButtonLeft]}
+                  onPress={this.quizOver('reset')}
+                >
+                  <Text>
+                    Start Over
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.answerButton, styles.answerButtonRight, {backgroundColor: 'lightgray'}]}
+                  onPress={this.quizOver('deckView')}
+                >
+                  <Text>
+                    Deck List
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         )}
         { !quizOver && (
@@ -79,7 +130,12 @@ class QuizView extends Component {
                     <Text style={styles.flipText}>
                       {questions[activeQuestion].question}
                     </Text>
-                    <FontAwesome name="share" size={30} color="#2a2a66" style={{paddingTop: 20}} />
+                    <FontAwesome
+                      name="share"
+                      size={30}
+                      color="#2a2a66"
+                      style={{paddingTop: 20}}
+                    />
                   </View>
                 )}
                 { !this.state.showFront && (
@@ -87,7 +143,12 @@ class QuizView extends Component {
                     <Text style={styles.flipText}>
                       {questions[activeQuestion].answer}
                     </Text>
-                    <FontAwesome name="share" size={30} color="#2a2a66" style={{paddingTop: 20}} />
+                    <FontAwesome
+                      name="share"
+                      size={30}
+                      color="#2a2a66"
+                      style={{paddingTop: 20}}
+                    />
                   </View>
                 )}
               </TouchableOpacity>
@@ -118,6 +179,29 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  quizOver: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  quizOverBar: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  quizOverTitle: {
+    flex: 1,
+    height: 70,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'lightblue',
+  },
+  quizOverTitleText: {
+    fontSize: 30,
   },
   flipCard: {
     width: 300,
