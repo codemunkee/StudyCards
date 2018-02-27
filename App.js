@@ -2,9 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { Constants } from 'expo';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-import Home from './components/Home';
 import DeckLinks from './components/DeckLinks';
 import DeckView from './components/DeckView';
+import QuizView from './components/QuizView';
+import AddQuestion from './components/AddQuestion';
 
 function StudyStatusBar({ backgroundColor, ...props }) {
   return (
@@ -16,12 +17,10 @@ function StudyStatusBar({ backgroundColor, ...props }) {
 
 const MainNavigator = StackNavigator(
   {
-    Home: {
-      screen: DeckLinks,
-    },
-    DeckView: {
-      screen: DeckView,
-    },
+    Home: { screen: DeckLinks },
+    DeckView: { screen: DeckView },
+    QuizView: { screen: QuizView },
+    AddQuestion: { screen: AddQuestion },
   },
   {
     headerMode: 'float',
