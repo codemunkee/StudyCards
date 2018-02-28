@@ -12,7 +12,7 @@ import { getDeck } from '../utils/helpers'
 class DeckView extends Component {
 
   state = {
-    deckTitle: this.props.navigation.state.params,
+    deckKey: this.props.navigation.state.params,
     dataLoaded: false,
   }
 
@@ -28,22 +28,22 @@ class DeckView extends Component {
   }
 
   componentDidMount() {
-    const deckData = getDeck(this.state.deckTitle);
+    const deckData = getDeck(this.state.deckKey);
     this.setState({
       dataLoaded: true,
-      deckData,
+      deckData: deckData[this.state.deckKey],
     })
   }
 
   render() {
-    const { deckTitle, deckData, dataLoaded } = this.state;
+    const { deckData, dataLoaded } = this.state;
     return (
       <View style={{ flex: 1 }}>
         { !dataLoaded && (
           <View style={styles.dataLoading}>
             <ActivityIndicator size="large" color="#2a2a66" />
             <Text>
-              Loading {deckTitle} Cards...
+              Loading Cards...
             </Text>
           </View>
         )}
@@ -52,7 +52,7 @@ class DeckView extends Component {
           <View style={styles.container}>
             <View style={styles.deckDetails}>
               <View style={styles.deckTitleContainer}>
-                <Text style={styles.deckTitleText}>{deckTitle}</Text>
+                <Text style={styles.deckTitleText}>{deckData.title}</Text>
               </View>
               <View style={styles.deckCountContainer}>
                 <Text style={styles.deckCountInteger}>{deckData.questions.length}</Text>

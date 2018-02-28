@@ -7,7 +7,7 @@ export default function DeckLinks(props) {
 
   const decks = getDecks();
   const deckList = Object.keys(decks).map((deckKey) => {
-    return decks[deckKey];
+    return { key: deckKey, ...decks[deckKey]};
   })
 
 
@@ -30,7 +30,6 @@ export default function DeckLinks(props) {
               onPress={this.handlePress(item.title)}
             />
         )}
-        keyExtractor={(item, index) => index}
     />
   )
 }
