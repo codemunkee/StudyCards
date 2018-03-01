@@ -1,9 +1,15 @@
 export function getDecks() {
-  return deckData;
+  // we turn the object of objects that is deckData into an
+  // array, we also add a property indicating the key of the
+  // deck object in the array, this is required when we use
+  // certain components like FlatList/ListItem
+  return Object.keys(deckData).map((deckKey) => {
+    return { key: deckKey, ...deckData[deckKey]};
+  });
 }
 
 export function getDeck(deckKey) {
-  return { [deckKey]: deckData[deckKey] };
+  return { key: deckKey, ...deckData[deckKey]};
 }
 
 export function saveDeckTitle() {

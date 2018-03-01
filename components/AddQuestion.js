@@ -12,7 +12,7 @@ class AddQuestion extends Component {
     console.log(this.props)
     return (
       <View style={{ flex: 1 }}>
-        <Text>Add Question View</Text>
+        <Text>Add Question View - Oh yea</Text>
       </View>
     )
   }

@@ -5,11 +5,7 @@ import { getDecks } from '../utils/helpers';
 
 export default function DeckLinks(props) {
 
-  const decks = getDecks();
-  const deckList = Object.keys(decks).map((deckKey) => {
-    return { key: deckKey, ...decks[deckKey]};
-  })
-
+  const deckList = getDecks();
 
   handlePress = (data) => {
     return () => {

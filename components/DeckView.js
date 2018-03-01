@@ -31,11 +31,12 @@ class DeckView extends Component {
     const deckData = getDeck(this.state.deckKey);
     this.setState({
       dataLoaded: true,
-      deckData: deckData[this.state.deckKey],
+      deckData
     })
   }
 
   render() {
+    console.log('STATE', this.state)
     const { deckData, dataLoaded } = this.state;
     return (
       <View style={{ flex: 1 }}>
