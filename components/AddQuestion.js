@@ -21,18 +21,22 @@ class AddQuestion extends Component {
             Add New Question
           </Text>
         </View>
-        <View style={{ flex: 1, height: 50, backgroundColor: 'powderblue', paddingBottom: 40}}>
+        <View style={styles.inputView}>
           <Text style={styles.inputHeading}>Question</Text>
-          <TextInput style={styles.questionInput}>
-          </TextInput>
+          <TextInput
+            style={styles.questionInput}
+            multiline={true}
+          />
           <Text style={styles.inputHeading}>Answer</Text>
-          <TextInput style={styles.answerInput}>
-          </TextInput>
+          <TextInput
+            style={styles.answerInput}
+            multiline={true}
+          />
         </View>
-        <View style={{flex: 2, backgroundColor: 'powderblue', alignItems: 'center'}}>
-        <TouchableOpacity style={styles.submitButton}>
-          <Text style={styles.buttonText}>SUBMIT</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonView}>
+          <TouchableOpacity style={styles.submitButton}>
+            <Text style={styles.buttonText}>SUBMIT</Text>
+          </TouchableOpacity>
         </View>
       </View>
     )
@@ -49,6 +53,12 @@ styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  inputView: {
+    flex: 1,
+    height: 50,
+    backgroundColor: 'powderblue',
+    paddingBottom: 40
+  },
   inputHeading: {
     fontSize: 20,
     padding: 5,
@@ -64,6 +74,9 @@ styles = StyleSheet.create({
     backgroundColor: 'white',
     marginLeft: 10,
     marginRight: 10,
+  },
+  buttonView: {
+    flex: 2, backgroundColor: 'powderblue', alignItems: 'center'
   },
   submitButton: {
     justifyContent: 'center',
