@@ -1,33 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { getDecks } from '../utils/helpers';
 
-export default function DeckLinks(props) {
+class DeckLinks extends Component {
 
-  const deckList = getDecks();
+  state = {
+    deckList: [],
+  }
 
   handlePress = (data) => {
     return () => {
-      const  { navigate } = props.navigation;
+      const  { navigate } = this.props.navigation;
       navigate('DeckView', data)
     }
   }
 
-  return (
-    <FlatList
-        data={deckList}
-        renderItem={({ item }) => (
-            <ListItem
-              containerStyle={styles.container}
-              key={item.title}
-              title={item.title}
-              badge={{ value: item.questions.length, textStyle: { color: 'powderblue' } }}
-              onPress={this.handlePress(item.title)}
-            />
-        )}
-    />
-  )
+  componentDidMount() {
+    console.log('Called')
+    const deckList = getDecks();
+    this.setState({
+      deckList
+    })
+  }
+
+  render() {
+    const { deckList } = this.state;
+    console.log(deckList);
+    return (
+      <FlatList
+          data={deckList}
+          renderItem={({ item }) => (
+              <ListItem
+                containerStyle={styles.container}
+                key={item.title}
+                title={item.title}
+                badge={{ value: item.questions.length, textStyle: { color: 'powderblue' } }}
+                onPress={this.handlePress(item.title)}
+              />
+          )}
+      />
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -37,3 +51,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
   }
 })
+
+export default DeckLinks;
