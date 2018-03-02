@@ -3,7 +3,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  TextInput
 } from 'react-native';
 
 class AddQuestion extends Component {
@@ -20,8 +21,18 @@ class AddQuestion extends Component {
             Add New Question
           </Text>
         </View>
-        <View style={{ flex: 1, height: 50, backgroundColor: 'powderblue'}}>
-          <Text>Add Question</Text>
+        <View style={{ flex: 1, height: 50, backgroundColor: 'powderblue', paddingBottom: 40}}>
+          <Text style={styles.inputHeading}>Question</Text>
+          <TextInput style={styles.questionInput}>
+          </TextInput>
+          <Text style={styles.inputHeading}>Answer</Text>
+          <TextInput style={styles.answerInput}>
+          </TextInput>
+        </View>
+        <View style={{flex: 2, backgroundColor: 'powderblue', alignItems: 'center'}}>
+        <TouchableOpacity style={styles.submitButton}>
+          <Text style={styles.buttonText}>SUBMIT</Text>
+        </TouchableOpacity>
         </View>
       </View>
     )
@@ -38,6 +49,40 @@ styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  inputHeading: {
+    fontSize: 20,
+    padding: 5,
+  },
+  questionInput: {
+    height: 40,
+    backgroundColor: 'white',
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  answerInput: {
+    height: 80,
+    backgroundColor: 'white',
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  submitButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: 120,
+    backgroundColor: '#80ffaa',
+    borderRadius: 15,
+    shadowOpacity: .9,
+    shadowColor: 'rgba(0,0,0,0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+  },
+  buttonText: {
+    padding: 15,
+    fontSize: 20,
+  }
 })
 
 export default AddQuestion;
