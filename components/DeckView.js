@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
-import { getDeck } from '../utils/helpers'
+import { getDeck } from '../utils/helpers';
 
 class DeckView extends Component {
 

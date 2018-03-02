@@ -16,11 +16,12 @@ export function saveDeckTitle() {
   console.log('Save Deck Title');
 }
 
-export function addCardToDeck() {
+export function addCardToDeck(key, question, answer) {
   console.log('Adding Card to Deck');
+  deckData[key].questions.push({question, answer});
 }
 
-const deckData = {
+let deckData = {
   React: {
     title: 'React',
     questions: [

@@ -6,11 +6,33 @@ import {
   StyleSheet,
   TextInput
 } from 'react-native';
+import { addCardToDeck } from '../utils/helpers';
 
 class AddQuestion extends Component {
 
+  state = {
+    key: this.props.navigation.state.params.key,
+    title: this.props.navigation.state.params.title,
+    questionText: '',
+    answerText: '',
+    submitBlocked: false,
+  }
+
+  submitQA = () => {
+    const { key, questionText, answerText } = this.state;
+    if (!questionText || !answerText) {
+      console.log("empty form fields")
+      this.setState({
+        submitBlocked: true
+      });
+    } else {
+      addCardToDeck(key, questionText, answerText);
+      this.props.navigation.navigate('DeckLinks');
+    }
+  }
+
   render() {
-    const { key, title } = this.props.navigation.state.params;
+    const { key, title, questionText, answerText, submitBlocked } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.title}>
@@ -22,19 +44,42 @@ class AddQuestion extends Component {
           </Text>
         </View>
         <View style={styles.inputView}>
-          <Text style={styles.inputHeading}>Question</Text>
+          <Text style={styles.inputHeading}>Question
+            { submitBlocked && !questionText && (
+              <View style={styles.inputRequired}>
+                <Text style={{ color: 'red' }}>
+                (Required)
+                </Text>
+              </View>
+            )}
+          </Text>
           <TextInput
             style={styles.questionInput}
             multiline={true}
+            onChangeText={(questionText) => this.setState({questionText})}
+            value={this.state.questionText}
           />
-          <Text style={styles.inputHeading}>Answer</Text>
+          <Text style={styles.inputHeading}>Answer
+            { submitBlocked && !answerText && (
+              <View style={styles.inputRequired}>
+                <Text style={{ color: 'red', paddingLeft: 5 }}>
+                (Required)
+                </Text>
+              </View>
+            )}
+          </Text>
           <TextInput
             style={styles.answerInput}
             multiline={true}
+            onChangeText={(answerText) => this.setState({answerText})}
+            value={this.state.answerText}
           />
         </View>
         <View style={styles.buttonView}>
-          <TouchableOpacity style={styles.submitButton}>
+          <TouchableOpacity
+            style={styles.submitButton}
+            onPress={this.submitQA}
+          >
             <Text style={styles.buttonText}>SUBMIT</Text>
           </TouchableOpacity>
         </View>
@@ -62,6 +107,12 @@ styles = StyleSheet.create({
   inputHeading: {
     fontSize: 20,
     padding: 5,
+  },
+  inputRequired: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: 5,
   },
   questionInput: {
     height: 40,
