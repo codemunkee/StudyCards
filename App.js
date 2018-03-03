@@ -11,7 +11,11 @@ import AddDeck from './components/AddDeck';
 function StudyStatusBar({ backgroundColor, ...props }) {
   return (
     <View style={{backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+      <StatusBar
+        translucent
+        backgroundColor={backgroundColor}
+        {...props}
+      />
     </View>
   )
 }

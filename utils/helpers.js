@@ -12,8 +12,17 @@ export function getDeck(deckKey) {
   return { key: deckKey, ...deckData[deckKey]};
 }
 
-export function saveDeckTitle() {
-  console.log('Save Deck Title');
+export function saveDeckTitle(deckTitle) {
+  console.log('Save Deck Title', deckTitle);
+  // remove special characters and spaces for our deckKey
+  const deckKey = deckTitle.replace(/[^A-Z0-9]/ig, '');
+  deckData = {
+    ...deckData,
+    [deckKey]: {
+      title: deckTitle,
+      questions: []
+    }
+  }
 }
 
 export function addCardToDeck(key, question, answer) {

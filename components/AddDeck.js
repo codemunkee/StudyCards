@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TextInput
 } from 'react-native';
+import { saveDeckTitle } from '../utils/helpers';
+import { NavigationActions } from 'react-navigation';
 
 class AddDeck extends Component {
 
@@ -21,7 +23,12 @@ class AddDeck extends Component {
         submitBlocked: true
       });
     } else {
-      console.log('Adding Deck');
+      saveDeckTitle(deckTitleText);
+      this.props.navigation.dispatch(NavigationActions.reset({
+        index: 0,
+        key: null,
+        actions: [NavigationActions.navigate({ routeName: 'Home' })]
+      }));
     }
   }
 
