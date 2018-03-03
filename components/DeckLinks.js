@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { getDecks } from '../utils/helpers';
+import { getDecks, getStoredDecks } from '../utils/helpers';
 import { FontAwesome } from '@expo/vector-icons'
 
 class DeckLinks extends Component {
@@ -21,8 +21,9 @@ class DeckLinks extends Component {
     this.props.navigation.navigate('AddDeck');
   }
 
-  componentDidMount() {
-    const deckList = getDecks();
+  async componentDidMount() {
+
+    const deckList = await getDecks();
     this.setState({
       deckList
     })

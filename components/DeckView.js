@@ -17,18 +17,19 @@ class DeckView extends Component {
   }
 
   handlePress = (data) => {
+    const { navigate } = this.props.navigation;
     return () => {
       if (data === 'startQuiz') {
-        this.props.navigation.navigate('QuizView', this.state.deckData)
+        navigate('QuizView', this.state.deckData)
       }
       if (data === 'addQuestion') {
-        this.props.navigation.navigate('AddQuestion', this.state.deckData)
+        navigate('AddQuestion', this.state.deckData)
       }
     }
   }
 
-  componentDidMount() {
-    const deckData = getDeck(this.state.deckKey);
+  async componentDidMount() {
+    const deckData = await getDeck(this.state.deckKey);
     this.setState({
       dataLoaded: true,
       deckData

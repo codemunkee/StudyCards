@@ -1,4 +1,25 @@
-export function getDecks() {
+import { AsyncStorage } from 'react-native';
+
+async function getStoredDecks() {
+  let response = await AsyncStorage.getItem('deckData');
+  let storedDeckData = await JSON.parse(response);
+  return storedDeckData;
+}
+
+async function updateDeckData(newDeckData) {
+  await AsyncStorage.setItem('deckData', JSON.stringify(newDeckData));
+}
+
+export async function getDecks() {
+  let deckData = await getStoredDecks();
+  if (!deckData) {
+    // bootstrap with some data if this is the first time
+    // that the app is being launched.
+    console.log('bootstrapping');
+    await updateDeckData(bootstrapDeckData);
+    deckData = await getStoredDecks();
+  }
+  console.log('here', deckData)
   // we turn the object of objects that is deckData into an
   // array, we also add a property indicating the key of the
   // deck object in the array, this is required when we use
@@ -8,29 +29,33 @@ export function getDecks() {
   });
 }
 
-export function getDeck(deckKey) {
+export async function getDeck(deckKey) {
+  const deckData = await getStoredDecks();
   return { key: deckKey, ...deckData[deckKey]};
 }
 
-export function saveDeckTitle(deckTitle) {
-  console.log('Save Deck Title', deckTitle);
+export async function saveDeckTitle(deckTitle) {
+  const deckData = await getStoredDecks();
   // remove special characters and spaces for our deckKey
   const deckKey = deckTitle.replace(/[^A-Z0-9]/ig, '');
-  deckData = {
+  const newDeckData = {
     ...deckData,
     [deckKey]: {
       title: deckTitle,
       questions: []
     }
   }
+  await updateDeckData(newDeckData);
 }
 
-export function addCardToDeck(key, question, answer) {
-  console.log('helpers (addCardToDeck): Adding Card to Deck');
-  deckData[key].questions.push({question, answer});
+export async function addCardToDeck(key, question, answer) {
+  console.log("Adding new card")
+  let newDeckData = await getStoredDecks();
+  newDeckData[key].questions.push({question, answer});
+  await updateDeckData(newDeckData);
 }
 
-let deckData = {
+let bootstrapDeckData = {
   React: {
     title: 'React',
     questions: [
