@@ -6,6 +6,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'
+import { NavigationActions } from 'react-navigation';
 
 class QuizView extends Component {
   state = {
@@ -64,8 +65,12 @@ class QuizView extends Component {
           quizOver: false,
         });
       }
-      if (data === 'deckView') {
-        this.props.navigation.popToTop();
+      if (data === 'deckList') {
+        this.props.navigation.dispatch(NavigationActions.reset({
+          index: 0,
+          key: null,
+          actions: [NavigationActions.navigate({ routeName: 'Home' })]
+        }));
       }
     }
   }
@@ -107,7 +112,7 @@ class QuizView extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.answerButton, styles.answerButtonRight, {backgroundColor: 'lightgray'}]}
-                  onPress={this.quizOver('deckView')}
+                  onPress={this.quizOver('deckList')}
                 >
                   <Text>
                     Deck List

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { getDecks } from '../utils/helpers';
+import { NavigationActions } from 'react-navigation';
 
 class DeckLinks extends Component {
 
@@ -14,6 +15,15 @@ class DeckLinks extends Component {
       const  { navigate } = this.props.navigation;
       navigate('DeckView', data)
     }
+  }
+
+  reset() {
+    return this.props.navigation.dispatch(
+      NavigationActions.reset({
+        index: 0,
+        actions: [ NavigationActions.navigate({ routeName: 'Home'})]
+      })
+    );
   }
 
   componentDidMount() {

@@ -8,6 +8,7 @@ import {
   StyleSheet
 } from 'react-native';
 import { getDeck } from '../utils/helpers';
+import { NavigationActions } from 'react-navigation';
 
 class DeckView extends Component {
 
