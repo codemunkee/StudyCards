@@ -22,7 +22,6 @@ class DeckLinks extends Component {
   }
 
   componentDidMount() {
-    console.log('DeckLinks: Called componentDidMount')
     const deckList = getDecks();
     this.setState({
       deckList
