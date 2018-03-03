@@ -6,6 +6,7 @@ import DeckLinks from './components/DeckLinks';
 import DeckView from './components/DeckView';
 import QuizView from './components/QuizView';
 import AddQuestion from './components/AddQuestion';
+import AddDeck from './components/AddDeck';
 
 function StudyStatusBar({ backgroundColor, ...props }) {
   return (
@@ -21,6 +22,7 @@ const MainNavigator = StackNavigator(
     DeckView: { screen: DeckView },
     QuizView: { screen: QuizView },
     AddQuestion: { screen: AddQuestion },
+    AddDeck: { screen: AddDeck },
   },
   {
     headerMode: 'float',
