@@ -37,7 +37,6 @@ class DeckView extends Component {
   }
 
   render() {
-    console.log('STATE', this.state)
     const { deckData, dataLoaded } = this.state;
     return (
       <View style={{ flex: 1 }}>

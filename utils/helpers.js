@@ -15,11 +15,9 @@ export async function getDecks() {
   if (!deckData) {
     // bootstrap with some data if this is the first time
     // that the app is being launched.
-    console.log('bootstrapping');
     await updateDeckData(bootstrapDeckData);
     deckData = await getStoredDecks();
   }
-  console.log('here', deckData)
   // we turn the object of objects that is deckData into an
   // array, we also add a property indicating the key of the
   // deck object in the array, this is required when we use
@@ -49,7 +47,6 @@ export async function saveDeckTitle(deckTitle) {
 }
 
 export async function addCardToDeck(key, question, answer) {
-  console.log("Adding new card")
   let newDeckData = await getStoredDecks();
   newDeckData[key].questions.push({question, answer});
   await updateDeckData(newDeckData);
