@@ -21,13 +21,12 @@ class AddQuestion extends Component {
   submitQA = () => {
     const { key, questionText, answerText } = this.state;
     if (!questionText || !answerText) {
-      console.log("empty form fields")
       this.setState({
         submitBlocked: true
       });
     } else {
       addCardToDeck(key, questionText, answerText);
-      this.props.navigation.navigate('DeckLinks');
+      this.props.navigation.navigate('DeckView', key);
     }
   }
 

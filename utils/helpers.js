@@ -17,7 +17,7 @@ export function saveDeckTitle() {
 }
 
 export function addCardToDeck(key, question, answer) {
-  console.log('Adding Card to Deck');
+  console.log('helpers (addCardToDeck): Adding Card to Deck');
   deckData[key].questions.push({question, answer});
 }
 

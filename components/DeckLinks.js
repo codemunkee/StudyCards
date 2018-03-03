@@ -17,7 +17,7 @@ class DeckLinks extends Component {
   }
 
   componentDidMount() {
-    console.log('Called')
+    console.log('DeckLinks: Called componentDidMount')
     const deckList = getDecks();
     this.setState({
       deckList
@@ -26,7 +26,7 @@ class DeckLinks extends Component {
 
   render() {
     const { deckList } = this.state;
-    console.log(deckList);
+    console.log('DeckLinks (deckList):', deckList);
     return (
       <FlatList
           data={deckList}
