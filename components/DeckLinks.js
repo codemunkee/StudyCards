@@ -31,7 +31,6 @@ class DeckLinks extends Component {
 
   render() {
     const { deckList } = this.state;
-    console.log('DeckLinks (deckList):', deckList);
     return (
       <View>
         <TouchableOpacity
