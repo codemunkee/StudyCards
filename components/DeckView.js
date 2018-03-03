@@ -8,7 +8,6 @@ import {
   StyleSheet
 } from 'react-native';
 import { getDeck } from '../utils/helpers';
-import { NavigationActions } from 'react-navigation';
 
 class DeckView extends Component {
 
@@ -60,16 +59,18 @@ class DeckView extends Component {
                 <Text style={styles.deckCountText}>cards</Text>
               </View>
             </View>
-            <View style={styles.buttonContainer}>
-              <View style={styles.buttonBar}>
-                <TouchableOpacity
-                  onPress={this.handlePress('startQuiz')}
-                  style={styles.button}
-                >
-                  <Text style={styles.buttonText}>START QUIZ</Text>
-                </TouchableOpacity>
+            { deckData.questions.length > 0 && (
+              <View style={styles.buttonContainer}>
+                <View style={styles.buttonBar}>
+                    <TouchableOpacity
+                      onPress={this.handlePress('startQuiz')}
+                      style={styles.button}
+                    >
+                      <Text style={styles.buttonText}>START QUIZ</Text>
+                    </TouchableOpacity>
+                </View>
               </View>
-            </View>
+            )}
             <View style={styles.buttonContainer}>
               <View style={styles.buttonBar}>
                 <TouchableOpacity
