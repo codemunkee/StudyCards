@@ -7,6 +7,7 @@ import {
   TextInput
 } from 'react-native';
 import { addCardToDeck } from '../utils/helpers';
+import { NavigationActions } from 'react-navigation';
 
 class AddQuestion extends Component {
 
@@ -18,15 +19,17 @@ class AddQuestion extends Component {
     submitBlocked: false,
   }
 
-  submitQA = () => {
-    const { key, questionText, answerText } = this.state;
-    if (!questionText || !answerText) {
-      this.setState({
-        submitBlocked: true
-      });
-    } else {
-      addCardToDeck(key, questionText, answerText);
-      this.props.navigation.navigate('DeckView', key);
+  submitQA() {
+    return async () => {
+      const { key, questionText, answerText } = this.state;
+      if (!questionText || !answerText) {
+        this.setState({
+          submitBlocked: true
+        });
+      } else {
+        await addCardToDeck(key, questionText, answerText);
+        this.props.navigation.navigate('DeckView', key);
+      }
     }
   }
 
@@ -77,7 +80,7 @@ class AddQuestion extends Component {
         <View style={styles.buttonView}>
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={this.submitQA}
+            onPress={this.submitQA()}
           >
             <Text style={styles.buttonText}>SUBMIT</Text>
           </TouchableOpacity>

@@ -11,24 +11,29 @@ import { NavigationActions } from 'react-navigation';
 
 class AddDeck extends Component {
 
-  state = {
-    deckTitleText: '',
-    submitBlocked: false,
+  constructor() {
+    super();
+    this.state = {
+      deckTitleText: '',
+      submitBlocked: false,
+    }
   }
 
-  submitDeck = () => {
-    const { key, deckTitleText } = this.state;
-    if (!deckTitleText) {
-      this.setState({
-        submitBlocked: true
-      });
-    } else {
-      saveDeckTitle(deckTitleText);
-      this.props.navigation.dispatch(NavigationActions.reset({
-        index: 0,
-        key: null,
-        actions: [NavigationActions.navigate({ routeName: 'Home' })]
-      }));
+  submitDeck() {
+    return async () => {
+      const { key, deckTitleText } = this.state;
+      if (!deckTitleText) {
+        this.setState({
+          submitBlocked: true
+        });
+      } else {
+        await saveDeckTitle(deckTitleText);
+        this.props.navigation.dispatch(NavigationActions.reset({
+          index: 0,
+          key: null,
+          actions: [NavigationActions.navigate({ routeName: 'Home' })]
+        }));
+      }
     }
   }
 
@@ -61,7 +66,7 @@ class AddDeck extends Component {
         <View style={styles.buttonView}>
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={this.submitDeck}
+            onPress={this.submitDeck()}
           >
             <Text style={styles.buttonText}>SUBMIT</Text>
           </TouchableOpacity>
