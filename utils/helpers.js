@@ -24,6 +24,8 @@ function createNotification() {
   }
 }
 
+// this code (and related reminder functionality) comes from the
+// https://github.com/udacity/reactnd-UdaciFitness-complete project
 export function setLocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
