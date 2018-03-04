@@ -28,6 +28,7 @@ class AddQuestion extends Component {
         });
       } else {
         await addCardToDeck(key, questionText, answerText);
+        // make sure our navigation stack doesn't get huge
         this.props.navigation.dispatch(NavigationActions.reset({
           index: 0,
           key: null,

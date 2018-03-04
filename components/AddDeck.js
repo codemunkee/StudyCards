@@ -28,6 +28,7 @@ class AddDeck extends Component {
         });
       } else {
         await saveDeckTitle(deckTitleText);
+        // make sure our navigation stack doesn't get huge
         this.props.navigation.dispatch(NavigationActions.reset({
           index: 0,
           key: null,
