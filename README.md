@@ -7,7 +7,9 @@ The project was bootstrapped with [Create React Native App](https://github.com/r
 
 # Running
 
-Assuming you have a simulator or a phone ready to go with Expo, getting the project going should be as simple as running `yarn start` and then choosing your platform of choice.
+I built this for IOS, if you run it on Android, cool, but YMMV.
+
+Assuming you have a simulator or an IOS phone ready to go with Expo, getting the project going should be as simple as running `yarn start` and then choosing your platform of choice.
 
 # Contributing
 
