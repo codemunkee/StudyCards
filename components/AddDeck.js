@@ -31,7 +31,11 @@ class AddDeck extends Component {
         this.props.navigation.dispatch(NavigationActions.reset({
           index: 0,
           key: null,
-          actions: [NavigationActions.navigate({ routeName: 'Home' })]
+          actions: [NavigationActions
+            .navigate({
+              routeName: 'DeckView',
+              params: deckTitleText.replace(/[^A-Z0-9]/ig, '')
+            })]
         }));
       }
     }
