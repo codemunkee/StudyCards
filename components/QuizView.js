@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'
 import { NavigationActions } from 'react-navigation';
+import { clearLocalNotification } from '../utils/helpers';
+
 
 class QuizView extends Component {
   state = {
@@ -56,6 +58,9 @@ class QuizView extends Component {
 
   quizOver(data) {
     return () => {
+      // clear the daily reminder to study
+      clearLocalNotification();
+
       if (data === 'reset') {
         this.setState({
           showFront: true,
