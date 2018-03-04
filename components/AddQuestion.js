@@ -28,7 +28,17 @@ class AddQuestion extends Component {
         });
       } else {
         await addCardToDeck(key, questionText, answerText);
-        this.props.navigation.navigate('DeckView', key);
+        this.props.navigation.dispatch(NavigationActions.reset({
+          index: 0,
+          key: null,
+          actions: [NavigationActions.navigate(
+            {
+              routeName: 'DeckView',
+              params: this.state.key
+            }
+          )]
+        }));
+
       }
     }
   }

@@ -8,6 +8,7 @@ import {
   StyleSheet
 } from 'react-native';
 import { getDeck } from '../utils/helpers';
+import { NavigationActions } from 'react-navigation';
 
 class DeckView extends Component {
 
@@ -20,10 +21,22 @@ class DeckView extends Component {
     const { navigate } = this.props.navigation;
     return () => {
       if (data === 'startQuiz') {
-        navigate('QuizView', this.state.deckData)
+        navigate('QuizView', this.state.deckData);
       }
       if (data === 'addQuestion') {
-        navigate('AddQuestion', this.state.deckData)
+        navigate('AddQuestion', this.state.deckData);
+      }
+      if (data === 'deckList') {
+        this.props.navigation.dispatch(NavigationActions.reset({
+          index: 0,
+          key: null,
+          actions: [NavigationActions.navigate(
+            {
+              routeName: 'Home',
+              params: this.state.key
+            }
+          )]
+        }));
       }
     }
   }
@@ -49,7 +62,7 @@ class DeckView extends Component {
           </View>
         )}
 
-        { this.state.dataLoaded && (
+        { dataLoaded && (
           <View style={styles.container}>
             <View style={styles.deckDetails}>
               <View style={styles.deckTitleContainer}>
@@ -73,12 +86,18 @@ class DeckView extends Component {
               </View>
             )}
             <View style={styles.buttonContainer}>
-              <View style={styles.buttonBar}>
+              <View style={[styles.buttonBar, {flexDirection: 'row'}]}>
                 <TouchableOpacity
                   onPress={this.handlePress('addQuestion')}
-                  style={[styles.button, {backgroundColor: 'lightgray'}]}
+                  style={[styles.button, {backgroundColor: '#80ffaa'}]}
                 >
                   <Text style={styles.buttonText}>ADD QUESTION</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.handlePress('deckList')}
+                  style={[styles.button, {backgroundColor: 'lightgray'}]}
+                >
+                  <Text style={styles.buttonText}>ALL DECKS</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -147,7 +166,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#80ffaa',
+    backgroundColor: 'aqua',
+    marginLeft: 5,
     borderRadius: 15,
     shadowOpacity: .9,
     shadowColor: 'rgba(0,0,0,0.24)',
