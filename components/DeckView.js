@@ -91,7 +91,7 @@ class DeckView extends Component {
                   onPress={this.handlePress('addQuestion')}
                   style={[styles.button, {backgroundColor: '#80ffaa'}]}
                 >
-                  <Text style={styles.buttonText}>ADD QUESTION</Text>
+                  <Text style={styles.buttonText}>ADD CARD</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={this.handlePress('deckList')}
